@@ -115,6 +115,7 @@ def predict(wgts,inputs):
 
 jenerasyon=2000
 count=1000
+
 ous=[]
 models=[None for i in range(count)]
 puanlar=[]
