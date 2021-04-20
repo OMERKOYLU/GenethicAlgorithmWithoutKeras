@@ -114,7 +114,7 @@ def predict(wgts,inputs):
     return result
 
 jenerasyon=2000
-count=1000
+count=10
 
 ous=[]
 models=[None for i in range(count)]
@@ -368,7 +368,7 @@ def mutate_models():
     global puanlar
     fitnesses=getFitnesses()
     for i in range(len(fitnesses)):
-        if fitnesses[i]<.75:
+        if fitnesses[i]<.55:
             # print(weights[i])
             for xi in range(len(weights[i])):
                 for yi in range(len(weights[i][xi])):
@@ -391,7 +391,7 @@ def crossOver():
     fitnesses=getFitnesses()
     indexes=[]
     for i in range(len(fitnesses)):
-        if fitnesses[i]>=.75:
+        if fitnesses[i]>=.55:
             indexes.append(i)
     for i in range(len(indexes)):
         if i<len(indexes)-1:
@@ -430,8 +430,11 @@ def getFitnesses():
     if maxPuan>rekor: rekor=maxPuan
     # if totalPuanlar>0:
     av=sum(puanlar)/len(puanlar)
-    diff=mx-mn if mx>mn else 1
-    fitnesses=[(((p-av)/diff)+1)/2 for p in puanlar]
+    farklar=[(p-av)**2 for p in puanlar]
+    t=sum(farklar)/(len(puanlar)-1)
+    print(t)
+    standartSapma=math.sqrt(t)
+    fitnesses=[(((p-av)/standartSapma)*10+50)/100 if standartSapma>0 else 0.0 for p in puanlar]
     return fitnesses
 
 
