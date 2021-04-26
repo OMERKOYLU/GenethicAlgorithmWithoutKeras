@@ -92,19 +92,25 @@ while True:
             # cmds=np.fromstring(commands[-1][1:-2],dtype=float,sep=" ")
             command=np.argmax(cmds)
             # print(command)
-        if (command==0 or pygame.key.get_pressed()[pygame.K_LEFT]) and xRaket>0:
-            if VxRaket>-2:
-                VxRaket-=0.4
+        if (command == 0) and xRaket > 0:
+            if VxRaket > -2:
+                VxRaket -= 0.4
                 # print(VxRaket)
             # print("sola gidiyorum")
-            xRaket+=VxRaket*5
+            xRaket += VxRaket * 5
             # print(VxRaket)
-        if (command==1 or pygame.key.get_pressed()[pygame.K_RIGHT]) and xRaket<300:
+        if (command == 1) and xRaket < 300:
+            # print("sağa gidiyorum")
+            # print("çarptı")
+            VxRaket = 0
+            # print(VxRaket)
+            xRaket += VxRaket * 5
+
+        if (command == 2) and xRaket < 300:
             # print("sağa gidiyorum")
             if VxRaket < 2:
-                VxRaket+=0.4
-                # print(VxRaket)
-            xRaket+=VxRaket*5
+                VxRaket += 0.4
+            xRaket += VxRaket * 5
             # print(VxRaket)
         x+=Vx
         y+=Vy

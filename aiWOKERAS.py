@@ -22,6 +22,7 @@ class model():
 
     weights=[[],[],[]]
     # print(weights)
+
     def __init__(self):
         # print(self.weights)
         # self.weights=[[.0]*134,[.0]*134,[.0]*134]
@@ -231,6 +232,7 @@ def startGame(player:model,idx:int):
             if (x>390) or (x<10):
                 Vx=-Vx
 
+
             x+=Vx
             y+=Vy
             # print("x:",x,"y:",y)
@@ -349,14 +351,16 @@ def start_game():
 def create_model():
     return model()
 
-def loadModels():
+def loadModels(mdls:[]=None,cnt:int=0):
     global models
     global count
     global weights
+    if cnt!=0: count=cnt
     for i in range(count):
         # if os.path.isfile("./aiModels/weights/mWeight" + str(i) + ".model"):
         #     models[i]=models.load_model("./aiModels/weights/mWeight" + str(i) + ".model")
         models[i] = create_model()
+        if not mdls is None: mdls[i] =models[i]
         # print(str(i))
         if os.path.isfile("./aiModels/WOKerasWeights/mWeight" + str(i) + ".ok"):
             models[i].load_weights("./aiModels/WOKerasWeights/mWeight" + str(i) + ".ok")
@@ -376,7 +380,10 @@ def mutate_models():
                     # for ji in range(len(weights[i][xi][yi])):
                     if random.uniform(0.0, 1.0) > 0.85:
                         change = random.uniform(-0.5, 0.5)
-                        weights[i][xi][yi] += change
+                        y=weights[i][xi][yi]
+                        y=math.asin(y)
+                        y += change
+                        weights[i][xi][yi]=math.sin(y)
                         # if weights[i][xi][yi]<-1: weights[i][xi][yi]=-1.0
                         # if weights[i][xi][yi]>1: weights[i][xi][yi]=1.0
             print("model ", i, " Mutasyon İşlemi Yapıldı")
